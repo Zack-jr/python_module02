@@ -1,35 +1,60 @@
-def garden_operations():
-    try:
-        print("Testing ValueError")
+def garden_operations(error_type):
+    """triggering errors"""
+    if error_type == "value":
         int("abc")
-    except ValueError:
-        print(f"Caught ValueError: invalid literal for int()\n")
+    elif error_type == "zero":
+        1 / 0
+    elif error_type == "file":
+        open("missing.txt")
+    elif error_type == "key":
+        plants = {}
+        _ = plants["missing_plant"]
+
+
+def test_error_types():
+    """catch the errors"""
+    print("=== Garden Error Types Demo ===\n")
+
+    print("Testing ValueError...")
     try:
-        print("Testing ZeroDivisionError...")
-        n = 1
-        n = n / 0
+        garden_operations("value")
+    except ValueError:
+        print("Caught ValueError: invalid literal for int()\n")
+
+    print("Testing ZeroDivisionError...")
+    try:
+        garden_operations("zero")
     except ZeroDivisionError as e:
         print(f"Caught ZeroDivisionError: {e}\n")
+
+    print("Testing FileNotFoundError...")
     try:
-        print("Testing FileNotFoundError")
-        open("imaginaryfile.txt")
+        garden_operations("file")
     except FileNotFoundError:
-        print(f"Caught FileNotFoundError: No such file 'imaginaryfile.txt'\n")
+        print("Caught FileNotFoundError: No such file 'missing.txt'\n")
+
+    print("Testing KeyError...")
     try:
-        print("Testing KeyError...")
-        plants = {"rose": 1}
-        print(plants["missing_plant"])
+        garden_operations("key")
     except KeyError as e:
         print(f"Caught KeyError: {e}\n")
-    print("Testing multiple errors together")
+
+    print("Testing multiple errors together...")
     try:
-        a = 1 / 0
+        garden_operations("zero")
+        garden_operations("value")
+        garden_operations("file")
+        garden_operations("key")
     except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
         print("Caught an error, but program continues!\n")
 
-def test_error_types():
-    print("===Garden Error Types Demo ===\n")
-    garden_operations()
     print("All error types tested successfully!")
 
-test_error_types()
+
+if __name__ == '__main__':
+    test_error_types()
+
+# there are different kinds of errors in different situations:
+# - ValueError (value problem)
+# - ZeroDivisionError (when trying to divide by 0)
+# -... and more

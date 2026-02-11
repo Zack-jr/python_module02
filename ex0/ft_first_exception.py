@@ -1,4 +1,5 @@
 def check_temperature(temp_str):
+    """Check the temperature"""
     print(f"Testing temperature: {temp_str}")
     try:
         n = int(temp_str)
@@ -12,8 +13,10 @@ def check_temperature(temp_str):
             print(f"Error: {n}°C is too hot for plants (max 40°C)\n")
         else:
             print(f"Error: {n}°C is too cold for plants (min 0°C)\n")
-    
+
+
 def test_temperature_input():
+    """Send inputs to check_temperature()"""
     print("=== Garden Temperature Checker ===\n")
     check_temperature("25")
     check_temperature("abc")
@@ -21,6 +24,9 @@ def test_temperature_input():
     check_temperature("-50")
     print("All tests completed - program didn't crash!")
 
-if __name__ == '__main__':
-   test_temperature_input()
 
+if __name__ == '__main__':
+    test_temperature_input()
+
+# the "try" condition tries to run its block of code until it finds an error.
+# "except" is there to catch the error after a try.
